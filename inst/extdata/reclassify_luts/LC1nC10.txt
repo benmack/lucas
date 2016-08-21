@@ -1,0 +1,11 @@
+LC1,id,class,class_abbr,color
+A,1,Urban,U,"#b11114"
+B,2,Cropland,CL,"#ffff99"
+C1,3,Broadleaf Woodland,BW,"#4fc029"
+C2,4,Coniferous Woodland,CW,"#1f601a"
+C3,5,Mixed Woodland,MW,"#34a32c"
+D,6,Shrubland,SL,"#d2955c"
+E,7,Grassland,GL,"#ffbc34"
+F,8,Bare Soil,BS,"#b15928"
+G,9,Water,W,"#1f78b4"
+H,10,Wetland,WL,"#a6cee3"

@@ -1,0 +1,10 @@
+.Rproj.user
+.Rhistory
+.RData
+inst/data/LMD/2006/*
+inst/data/LMD/2009/*
+inst/data/LMD/2012/*
+!inst/data/LMD/2012/DEU_2012.xls
+inst/data/GADM/*
+gitignore
+vignettes/.ipynb_checkpoints

@@ -1,0 +1,17 @@
+Package: lucas
+Type: Package
+Title: Utilities for Land cover/use statistics (LUCAS) data provided by EUROSTAT
+Version: 0.4.0
+Date: 2016-08-21
+Authors@R: person("Benjamin", "Mack", , "ben8mack@gmail.com", c("aut", "cre"))
+Maintainer: Benjamin Mack <knecmab@gmail.com>
+Description: This package can be used to download the LUCAS Micro Data (LMD) and convert it into a spatial data set.  
+License: MIT + file LICENSE
+URL: https://github.com/benmack/lucas
+BugReports: https://github.com/benmack/lucas/issues
+LazyData: true
+Depends:
+    sp,
+    rgdal,
+    rgeos
+RoxygenNote: 5.0.1

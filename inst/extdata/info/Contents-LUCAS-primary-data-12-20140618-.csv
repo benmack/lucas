@@ -1,0 +1,247 @@
+Label ;Description;FORMAT;Values
+POINT_ID;Point code;Number;
+X_LAEA;Latitude of the theoretical point (ref LAEA);Number;
+Y_LAEA;Longitude of the theoretical point (ref LAEA);Number;
+STRATA;stratum 1 assigned after photointerpretation;Number;"1= arable
+2= permanent crops
+3= grassland
+4= woodland and shrubland
+5= bareland
+6= artificial
+7= water"
+STRATA2;stratum 2 assigned after photointerpretation;Number;See strata
+NUTS0;level 0 of the standard NUTS classification;text;See file 'Nuts_area.xls' for the legend of the code
+NUTS1;1st level of the standard NUTS classification;text;See file 'Nuts_area.xls' for the legend of the code
+NUTS2;2nd level of the standard NUTS classification;text;See file 'Nuts_area.xls' for the legend of the code
+SURV_DATE;Date of survey;Date;dd/mm/yy
+OBSERVED;Observation of the point;Number;"1=point is observed;
+2=Point is not visible; 
+3=point in marine sea; 
+4=point out of national territory"
+OBS_TYPE;Type of observation ;Number;"1=field survey - point visible at a distance less than 100  m; 
+2=field survey - point visible at a distance more than 100m; 
+3= photo interpreted in the field since point not visible; 
+4= point not surveyed"
+GPS_PROJ;GPS Reference Projection System;Text;WGS84
+GPS_PREC;GPS precision;Number;Expressed in meters
+GPS_Y_LAT;GPS Latitude;Number;
+GPS_EW;GPS East/West;Text;E, W or 8
+GPS_X_LONG;GPS Longitude;Number;
+OBS_DIST;Distance from the point (based on GPS coordinates);Number;Expressed in meters
+Y_LAT;Theoretical Latitude;Number;
+EW;Theoretical East/West;Text;E or W
+X_LONG;Theoretical Longitude;Number;
+OBS_DIST;Distance from the point (based on GPS coordinates);Number;Expressed in meters
+OBS_DIRECT;Observation direction;Number;"1=on the point; 
+2= look to north rule applied; 
+3= look to east rule applied; 
+8=not relevant"
+LC1;Land Cover 1;Text;See file 'Nomenclature_LC_LU_LC species' Annex1
+LC2;Land Cover 2;Text;See file 'Nomenclature_LC_LU_LC species' Annex1
+OBS_RADIUS;Observation radius;Number;"1= 1.5m; 
+2=20m"
+LU1;Land Use 1;Text;See file 'Nomenclature_LC_LU_LC species' Annex2
+LU2;Land Use 2;Text;See file 'Nomenclature_LC_LU_LC species' Annex2
+LC1_SPECIES;LC1 Species;Text;See file 'Nomenclature_LC_LU_LC species' Annex3
+LC1_PERCENT;LC1 Percentage of coverage;Number;"1=less than 5%;
+2=between 5% and 10%; 
+3= between 10% and 25%; 
+4= between 25% and 50%; 
+5= between 50% and 75%;
+6=more than 75%;
+8=N.R."
+LC2_SPECIES;LC2 Species;Text;see nomenclature attached
+LC2_PERCENT;LC2 Percentage of coverage;Number;"1=less than 5%;
+2=between 5% and 10%; 
+3= between 10% and 25%; 
+4= between 25% and 50%; 
+5= between 50% and 75%;
+6=more than 75%;
+8=N.R."
+AREA_SIZE;Size of the area;Number;"1=less than 0.5ha; 
+2= between 0.5ha and 1ha; 
+3= between 1ha and 10ha;
+4= more than 10ha;
+8= N.R."
+TREE_HEIGHT_SURVEY;Height of trees;Number;"1= less than 5m; 
+2=more than 5m; 
+8= N.R."
+TREE_HEIGHT_MATURITY;Height of trees at maturity;Number;"1= less than 5m; 
+2=more than 5m; 
+8= N.R."
+FEATURE_WIDTH;Width of the features;Number;"1= less than 20m ;
+2= more than 20m;
+8= N.R."
+LAND_MNGT;Land management;Number;"1= Signs of grazing;
+2=not signs of grazing;
+8=N.R."
+LC_LU_SPECIAL_REMARK;Land Cover, Land Use special remarks;Number;"1= Tilled and/or sowed; 
+2= Harvested field;
+3= Clear cut; 
+4= Burnt area; 
+5= Fire break; 
+6= Nursery; 
+7= No remark"
+SPECIAL_STATUS;Special Status;Number;"1= Protected; 
+2= Hunting; 
+3= Protected and hunting; 
+4= No special status"
+WM_WATER_MNGT;Presence of water management;Number;"1=irrigation; 
+2=potential irrigation; 
+3=drainage; 
+4= irrigation and drainage; 
+5=not visible water management; 
+8=not relevant"
+WM_SRC_IRRIGATION;Source of irrigation ;Number;"1=well;
+2=pond/lake/reservoir; 
+3=stream/canal/ditch; 
+4=lagoon/wastewater; 
+5=other/not identified; 
+8=not relevant"
+WM_TYP_IRRIGATION;Type of irrigation;Number;"1=gravity; 
+2= pressure:sprinkler irrigation; 
+3=pressure: micro-irrigation; 
+4=gravity/pressure; 
+5= other/not identifiable; 
+8=not relevant"
+WM_DELIVERY_SYST;Delivery system of irrigation;Number;"1=canal; 
+2=ditch; 
+3=pipeline; 
+4=other/not identifiable; 
+8=not relevant"
+SOIL_SURVEY;Presence in the soil sample;Number;"1=soil sample taken; 
+2= soil sample not taken; 
+3= sample already taken in triplet; 
+8= N.R."
+SOIL_PLOUGH;Sign of ploughing;Number;"1=yes; 
+2=not; 
+8= not relevant"
+SOIL_CROP;Percentage of crop residual ;Number;"1=less than 10%; 
+2=between 10% and 25%; 
+3= between 25% and 50%; 
+4= more than 50%; 
+8=not relevant"
+SOIL_STONES;Percentage of stones;Number;"1=less than 10%; 
+2=between 10% and 25%; 
+3= between 25% and 50%; 
+4= more than 50%; 
+8=not relevant"
+PHOTO_POINT;PHOTO of the POINT;Number;"1=taken; 
+2=not taken; 
+8=not relevant"
+PHOTO_N;PHOTO North;Number;"1=taken; 
+2=not taken; 
+8=not relevant"
+PHOTO_E;PHOTO East;Number;"1=taken; 
+2=not taken; 
+8=not relevant"
+PHOTO_S;PHOTO South;Number;"1=taken; 
+2=not taken; 
+8=not relevant"
+PHOTO_W;PHOTO West;Number;"1=taken; 
+2=not taken; 
+8=not relevant"
+TR1;Transect code 1;Text;"Codes used for linear features
+01 Grass margins < 3 m
+02 Heath/Shrub, tall herb fringes < 3 m
+10 Single bushes, single tree
+11  Avenue trees
+12  Conifer hedges < 3 m
+13  Bush/tree hedges/coppices, visibly managed (e.g. pollarded) < 3 m
+14  Bush/tree hedges, not managed, with single trees, or shrubland deriving from abandonment < 3 m
+15  Grove/Woodland margins (if no hedgerow) < 3 m
+21  Dry stone walls
+22  Artificial constructions (other than dry stone walls)
+23 Fences
+24 Electric lines
+31 Ditches, channels < 3 m
+32 Rivers, streams < 3 m
+41 Ponds, wetlands < 3 m
+51 Rock outcrops with some natural vegetation
+61 Tracks
+62 Roads
+63 Railways
+71 Other linear elements
+*   value Photo-Interpreted
+  X Premature end of transect field assessment
+  8 No transect mapped
+see also nomenclature for land cover classes"
+TR2;Transect code 2;Text;See trans1
+TR3;Transect code 3;Text;See trans1
+TR4;Transect code 4;Text;See trans1
+TR5;Transect code 5;Text;See trans1
+TR6;Transect code 6;Text;See trans1
+TR7;Transect code 7;Text;See trans1
+TR8;Transect code 8;Text;See trans1
+TR9;Transect code 9;Text;See trans1
+TR10;Transect code 10;Text;See trans1
+TR11;Transect code 11;Text;See trans1
+TR12;Transect code 12;Text;See trans1
+TR13;Transect code 13;Text;See trans1
+TR14;Transect code 14;Text;See trans1
+TR15;Transect code 15;Text;See trans1
+TR16;Transect code 16;Text;See trans1
+TR17;Transect code 17;Text;See trans1
+TR18;Transect code 18;Text;See trans1
+TR19;Transect code 19;Text;See trans1
+TR20;Transect code 20;Text;See trans1
+TR21;Transect code 21;Text;See trans1
+TR22;Transect code 22;Text;See trans1
+TR23;Transect code 23;Text;See trans1
+TR24;Transect code 24;Text;See trans1
+TR25;Transect code 25;Text;See trans1
+TR26;Transect code 26;Text;See trans1
+TR27;Transect code 27;Text;See trans1
+TR28;Transect code 28;Text;See trans1
+TR29;Transect code 29;Text;See trans1
+TR30;Transect code 30;Text;See trans1
+TR31;Transect code 31;Text;See trans1
+TR32;Transect code 32;Text;See trans1
+TR33;Transect code 33;Text;See trans1
+TR34;Transect code 34;Text;See trans1
+TR35;Transect code 35;Text;See trans1
+TR36;Transect code 36;Text;See trans1
+TR37;Transect code 37;Text;See trans1
+TR38;Transect code 38;Text;See trans1
+TR39;Transect code 39;Text;See trans1
+TR40;Transect code 40;Text;See trans1
+TR41;Transect code 41;Text;See trans1
+TR42;Transect code 42;Text;See trans1
+TR43;Transect code 43;Text;See trans1
+TR44;Transect code 44;Text;See trans1
+TR45;Transect code 45;Text;See trans1
+TR46;Transect code 46;Text;See trans1
+TR47;Transect code 47;Text;See trans1
+TR48;Transect code 48;Text;See trans1
+TR49;Transect code 49;Text;See trans1
+TR50;Transect code 50;Text;See trans1
+TR51;Transect code 51;Text;See trans1
+TR52;Transect code 52;Text;See trans1
+TR53;Transect code 53;Text;See trans1
+TR54;Transect code 54;Text;See trans1
+TR55;Transect code 55;Text;See trans1
+TR56;Transect code 56;Text;See trans1
+TR57;Transect code 57;Text;See trans1
+TR58;Transect code 58;Text;See trans1
+TR59;Transect code 59;Text;See trans1
+TR60;Transect code 60;Text;See trans1
+TR61;Transect code 61;Text;See trans1
+TR62;Transect code 62;Text;See trans1
+TR63;Transect code 63;Text;See trans1
+TR64;Transect code 64;Text;See trans1
+TR65;Transect code 65;Text;See trans1
+TR66;Transect code 66;Text;See trans1
+TR67;Transect code 67;Text;See trans1
+TR68;Transect code 68;Text;See trans1
+TR69;Transect code 69;Text;See trans1
+TR70;Transect code 70;Text;See trans1
+TR71;Transect code 71;Text;See trans1
+TR72;Transect code 72;Text;See trans1
+TR73;Transect code 73;Text;See trans1
+TR74;Transect code 74;Text;See trans1
+TR75;Transect code 75;Text;See trans1
+TR76;Transect code 76;Text;See trans1
+TR77;Transect code 77;Text;See trans1
+TR78;Transect code 78;Text;See trans1
+TR79;Transect code 79;Text;See trans1
+TR80;Transect code 80;Text;See trans1

@@ -1,0 +1,7 @@
+^.*\.Rproj$
+^\.Rproj\.user$
+.ipynb_checkpoints
+buildignore
+gitignore
+notebooks
+notebooks/.ipynb_checkpoints

@@ -1,0 +1,22 @@
+[BE]
+Belgium
+[CZ]
+Czech Republic
+[DE]
+Germany
+[ES]
+Spain
+[FR]
+France
+[IT]
+Italy
+[LU]
+Luxembourg
+[HU]
+Hungary
+[NL]
+Netherlands
+[PL]
+Poland
+[SK]
+Slovakia
