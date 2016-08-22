@@ -1,5 +1,16 @@
-read_lmd <- function(xls, cols=NULL, spatial=FALSE, shp=NULL) {
-  df = read.csv(xls, header = TRUE, stringsAsFactors=FALSE)
+#' Title
+#'
+#' @param csv 
+#' @param cols 
+#' @param spatial 
+#' @param shp 
+#'
+#' @return
+#' @export
+#'
+#' @examples
+read_lmd <- function(csv, cols=NULL, spatial=FALSE, shp=NULL) {
+  df = read.csv(csv, header = TRUE, stringsAsFactors=FALSE)
   cols_df <- colnames(df)
   cols_df <- gsub("GPS_LONG", par_lmd$long, cols_df)
   cols_df <- gsub("GPS_LAT", par_lmd$lat, cols_df)

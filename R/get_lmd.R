@@ -7,11 +7,11 @@
 #' @param overwrite should existing files be overwritten
 #' @param spatial if \code{TRUE} a \code{\link{SpatialPointsDataFrame}} is returned
 #' @param save_shp if \code{TRUE} the data is tored as ESRI shapefile
+#' @param keep_original Keep the original file with the attribute/column names not changed? 
+#' @param verbosity Info?
 #'
 #' @return LMD data as data frame (if \code{spatial=FALSE}) or spatial points data frame (if \code{spatial=TRUE}) (invisible) 
-#' @export
-#'
-#' @examples
+#' @export LMD as table or SpatialPointsDataFrame 
 get_lmd <- function(destdir=NULL,
                     countries=NULL, 
                     years=NULL,
@@ -19,6 +19,7 @@ get_lmd <- function(destdir=NULL,
                     overwrite=FALSE, 
                     spatial=FALSE,
                     save_shp=FALSE,
+                    keep_original=FALSE,
                     verbosity=1) {
   
   if (is.null(destdir)) {
@@ -65,34 +66,31 @@ get_lmd <- function(destdir=NULL,
       cat(sprintf(paste0("-----------------------------------\n",
                          "Downloading (%s/%s) %s (%s), %d\n"),
                   i, n_downloads, country, code, year))
-    url <- .get_lmd_url(code, year)
-    destfile <- paste0(destdir, "/", year, "/", 
-                       .get_lmd_fname(code, year))
+    destfile <- paste0(destdir, "/", year, "/", .get_lmd_fname(code, year))
     dir.create(dirname(destfile), recursive=TRUE, showWarnings=FALSE)
+    
     if (!file.exists(destfile) | overwrite) {
-      if (verbosity>1)
-        cat("DEBUG! Download, URL=", url)
-      msg <- try(download.file(url, destfile))
-      if (msg!=0) {
-        warning("DOWNLOAD FAILED!!!")
+      ans <- download_lmd(code, year, destfile=destfile, keep_original=keep_original ,return_df=FALSE)
+      if (class(ans) == "try-error") {
+        # warning("DOWNLOAD FAILED!!!")
         try(unlink(destfile), silent=TRUE)
         failed <- rbind(failed, downloadlist[i, ])
       } else {
-        xls <- read_lmd(destfile, cols=cols)
-        write.csv(xls, file=destfile,
+        lmd <- read_lmd(destfile, cols=cols)
+        write.csv(lmd, file=destfile,
                   quote=FALSE, row.names=FALSE)
         if (spatial) {
-          xls <- create_spatial_lmd(xls, shp=shp)
+          lmd <- create_spatial_lmd(lmd, shp=shp)
         }
       }
     } else {
       cat("LMD already exists. Loaded from", destfile, "\n")
-      xls <- read_lmd(destfile, cols=cols, spatial=spatial, shp=shp)
+      lmd <- read_lmd(destfile, cols=cols, spatial=spatial, shp=shp)
     }
   }
   if (!is.null(nrow(failed))) {
     print("The following downloads failed:")
     print(failed)
   }
-  invisible(xls)
+  invisible(lmd)
 }

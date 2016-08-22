@@ -11,8 +11,11 @@
 #' @examples
 create_spatial_lmd <- function(df, shp=NULL, ...) {
   
-  if (any(df$EW=="W"))
-    df[df$EW=="W", par_lmd$long] <- -abs(df[df$EW=="W", par_lmd$long])
+  remove <- df$GPS_EW == 8
+  df <- df[!remove, ]
+  
+  if (any(df$GPS_EW=="W"))
+    df[df$GPS_EW=="W", par_lmd$long] <- -abs(df[df$GPS_EW=="W", par_lmd$long])
   
   coords <- df[, c(par_lmd$long, par_lmd$lat)]
   crs <- sp::CRS("+proj=longlat +datum=WGS84")

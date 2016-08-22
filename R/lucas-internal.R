@@ -21,7 +21,7 @@ NULL
   return(lmd)
 }
 
-.get_lmd_fname <- function(country, year, ext="xls") {
+.get_lmd_orig_fname <- function(country, year, ext="xls") {
   fn <- paste0(country, "_", year)
   if (year==2006) {
     fn <- paste0(fn, "_0")
@@ -33,11 +33,18 @@ NULL
   return(fn)
 }
 
+.get_lmd_fname <- function(country, year, ext="csv") {
+  fn <- paste0(country, "_", year)
+  if (!is.null(ext))
+    fn <- paste0(fn, ".", ext)
+  return(fn)
+}
+
 .get_lmd_url <- function(country, year) {
   if (year == 2015) {
-    fn <- .get_lmd_fname(country, paste0(year, "_20160728"), ext="csv")
+    fn <- .get_lmd_orig_fname(country, paste0(year, "_20160728"), ext="csv")
   } else {
-    fn <- .get_lmd_fname(country, year, ext="xls")
+    fn <- .get_lmd_orig_fname(country, year, ext="xls")
   }
   base_url <- "http://ec.europa.eu/eurostat/documents/205002/"
   year_dir <- c("2006"="209869/",

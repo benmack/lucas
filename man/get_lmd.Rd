@@ -5,7 +5,8 @@
 \title{Download and/or load LUCAS Micro Data (LMD)}
 \usage{
 get_lmd(destdir = NULL, countries = NULL, years = NULL, cols = NULL,
-  overwrite = FALSE, spatial = FALSE, save_shp = FALSE, verbosity = 1)
+  overwrite = FALSE, spatial = FALSE, save_shp = FALSE,
+  keep_original = FALSE, verbosity = 1)
 }
 \arguments{
 \item{destdir}{destination directory to store the data}
@@ -21,6 +22,10 @@ get_lmd(destdir = NULL, countries = NULL, years = NULL, cols = NULL,
 \item{spatial}{if \code{TRUE} a \code{\link{SpatialPointsDataFrame}} is returned}
 
 \item{save_shp}{if \code{TRUE} the data is tored as ESRI shapefile}
+
+\item{keep_original}{Keep the original file with the attribute/column names not changed?}
+
+\item{verbosity}{Info?}
 }
 \value{
 LMD data as data frame (if \code{spatial=FALSE}) or spatial points data frame (if \code{spatial=TRUE}) (invisible)
