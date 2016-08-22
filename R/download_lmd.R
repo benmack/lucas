@@ -32,6 +32,20 @@ download_lmd <- function(code, year, destfile=NULL, keep_original=FALSE, return_
   # cbind(colnames(df), attr_tbl$USE[idx])
   
   colnames(df) <- attr_tbl$USE[idx]
+  
+  # Convert transect info to one-column style
+  idx_transect <- grep("TR[0-9]", colnames(df))
+  if (length(idx_transect)>0) {
+    transect <- df[, idx_transect]
+    transect[transect==""] <- NA
+    
+    transect_new <- apply(transect, 1, paste, collapse=";")
+    transect_new <- gsub(";NA", "", transect_new)
+    df <- df[, -idx_transect]
+    df <- cbind(df, TRANSECT=transect_new)
+    df$TRANSECT=transect_new
+  }
+  
   write.csv(df, destfile, quote=F, row.names=F)
   
   if (return_df)

@@ -11,7 +11,7 @@
 #' @param verbosity Info?
 #'
 #' @return LMD data as data frame (if \code{spatial=FALSE}) or spatial points data frame (if \code{spatial=TRUE}) (invisible) 
-#' @export LMD as table or SpatialPointsDataFrame 
+#' @export
 get_lmd <- function(destdir=NULL,
                     countries=NULL, 
                     years=NULL,
@@ -70,7 +70,8 @@ get_lmd <- function(destdir=NULL,
     dir.create(dirname(destfile), recursive=TRUE, showWarnings=FALSE)
     
     if (!file.exists(destfile) | overwrite) {
-      ans <- download_lmd(code, year, destfile=destfile, keep_original=keep_original ,return_df=FALSE)
+      ans <- download_lmd(code, year, destfile=destfile, 
+                          keep_original=keep_original ,return_df=FALSE)
       if (class(ans) == "try-error") {
         # warning("DOWNLOAD FAILED!!!")
         try(unlink(destfile), silent=TRUE)
