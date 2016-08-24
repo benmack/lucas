@@ -3,6 +3,7 @@
 export(bind_lmd)
 export(colnames_transect)
 export(create_spatial_lmd)
+export(download_all)
 export(get_LC1xLU1_counts)
 export(get_country_code)
 export(get_filename)
