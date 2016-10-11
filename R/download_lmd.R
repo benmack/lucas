@@ -15,9 +15,13 @@ download_lmd <- function(code, year, destfile=NULL, keep_original=FALSE, return_
   # For the conversion, else writeOGR creates strange column names
   attr_tbl <- get_lmd_attributes_overview()
   
-  url <- .get_lmd_url(code, year)
-  
-  msg <- download.file(url, destfile)
+  url <- lucas:::.get_lmd_url(code, year, suffix="_20160728")
+  msg <- try(download.file(url, destfile))
+  if (class(msg)=="try-error") {
+    url <- lucas:::.get_lmd_url(code, year, suffix="_20160921")
+    msg <- try(download.file(url, destfile))
+  }
+
   if (msg!=0)
     stop("Could not download:", url)
   

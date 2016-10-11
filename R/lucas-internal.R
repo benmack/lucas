@@ -40,9 +40,9 @@ NULL
   return(fn)
 }
 
-.get_lmd_url <- function(country, year) {
+.get_lmd_url <- function(country, year, suffix="_20160728") {
   if (year == 2015) {
-    fn <- .get_lmd_orig_fname(country, paste0(year, "_20160728"), ext="csv")
+    fn <- .get_lmd_orig_fname(country, paste0(year, suffix), ext="csv")
   } else {
     fn <- .get_lmd_orig_fname(country, year, ext="xls")
   }
