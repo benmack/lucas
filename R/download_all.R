@@ -1,6 +1,6 @@
 #' Download all countries of all years and create shapefiles.
 #'
-#' @param lmdddir The base directory for the data. In this, a directory
+#' @param lmddir The base directory for the data. In this, a directory
 #' will be ceated for each year. 
 #' @param years The years for which to download the data. Possible: 2006, 2009, 2012, 2015.
 #' @param countries The countries to be downloaded in LMD code style 
@@ -12,7 +12,7 @@
 #'
 #' @return NULL
 #' @export
-download_all <- function(lmdddir, 
+download_all <- function(lmddir, 
                          years=c(2006, 2009, 2012, 2015), 
                          countries=NULL, 
                          create_single_country_shape=TRUE,
