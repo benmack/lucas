@@ -21,6 +21,8 @@ download_all <- function(lmdddir,
   if (is.null(countries))
     countries <- get_lmd_overview()$code
   
+   av_lmd <- get_lmd_overview()
+  
   for (year in years) {
     cat()
     lmd.merged <- NULL
