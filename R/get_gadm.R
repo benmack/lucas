@@ -47,7 +47,7 @@ get_gadm <- function(A3code, level=0, destdir=NULL,
 
 .loadGADM <- function (A3code, level = 0, destdir=NULL, ...) {
   fname <- paste0(A3code, "_adm", level, ".rds")
-  url <- paste("http://biogeo.ucdavis.edu/data/gadm2.6/R/",
+  url <- paste("http://biogeo.ucdavis.edu/data/gadm2.8/rds/",
                fname, sep="")
   if (!is.null(destdir)) {
     fpath <- paste0(destdir, "/", fname)
