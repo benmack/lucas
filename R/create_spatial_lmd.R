@@ -11,11 +11,23 @@
 #' @examples
 create_spatial_lmd <- function(df, shp=NULL, ...) {
   
-  remove <- df$GPS_EW == 8
+  if ("EW" %in% colnames(df)) {
+    ew_col <- "EW"
+  } else if ("GPS_EW" %in% colnames(df)) {
+    ew_col <- "GPS_EW"
+  } else {
+    stop("Cannot find required 'EW' or 'GPS_EW' column in the dataframe.")
+  }
+  remove <- df[ew_col] == 8
+  
+  if (all(remove)) {
+    stop("Unexpected: no rows left after removing GPS_EW or EW rows flagged with 8.")
+  }
+  
   df <- df[!remove, ]
   
-  if (any(df$GPS_EW=="W"))
-    df[df$GPS_EW=="W", par_lmd$long] <- -abs(df[df$GPS_EW=="W", par_lmd$long])
+  if (any(df[ew_col]=="W"))
+    df[df[ew_col]=="W", par_lmd$long] <- -abs(df[df[ew_col]=="W", par_lmd$long])
   
   coords <- df[, c(par_lmd$long, par_lmd$lat)]
   crs <- sp::CRS("+proj=longlat +datum=WGS84")
