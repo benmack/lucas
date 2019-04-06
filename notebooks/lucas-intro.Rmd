@@ -1,0 +1,177 @@
+---
+title: "Utilities for Land cover/use statistics (LUCAS) data provided by EUROSTAT"
+output: html_notebook
+---
+
+## Libraries
+```{r}
+require(ggplot2)
+
+# # Use the latest lucas code from source:
+#require(devtools)
+#load_all("..")
+# # (OR) Use the installed package:
+require(lucas)
+```
+
+## Introduction
+
+The lucas package provides some utilities for processing Land cover/use statistics (LUCAS) data provided by EUROSTAT http://ec.europa.eu/eurostat/web/lucas. So far only LUCAS micro data (LMD) can be handeled. The most convenient functions can be used if the downloaded LMD is stored in a base directory (e.g. LMD) following the structure:
+
+  LMD/ 
+    2006/ (data from http://ec.europa.eu/eurostat/web/lucas/data/primary-data/2006)
+      BE_2006_0.xls
+      CZ_2006_0.xls
+      DE_2006_0.xls
+    2009/ (data from http://ec.europa.eu/eurostat/web/lucas/data/primary-data/2009)
+      BE_2009.xls
+      ...
+    ...
+
+A list of with the country names and codes and the years of survey data can be loaded.
+
+```{r}
+available_lmd <- get_lmd_overview()
+available_lmd
+```
+
+```{r}
+cntry <- "DE"
+cntryA3 <- available_lmd$gadm[available_lmd$code==cntry]
+year <- 2012
+```
+
+## Get the data - one country
+
+You can download the data with the function get_lmd(). If on of the parameters countries and year is NULL all the corresponding data is downloaded. With the cols argument a subset of the columns can be saved. With get_lmd(destdir, countries=NULL, years=NULL) all datasets can be downloaded. The following call downloads only the data for Germany in 2012.
+
+```{r}
+a_tempdir <- tempdir()
+a_tempdir
+```
+
+```{r}
+lmd_subsets[["a"]]
+lmddir <- paste0(a_tempdir, "/LMD")
+get_lmd(lmddir, countries=cntry, years=year, cols=lmd_subsets[["a"]])
+# Why do we get the warning if we download ?
+# Columns not found and ignored: Y_LAT, X_LONG, EW, LC1, LU1
+```
+
+The column gadm gives the country code according to the ISO 3166 three letter code (see also http://userpage.chemie.fu-berlin.de/diverse/doc/ISO_3166.html). This code can be used to download the administrative boundaries from http://www.gadm.org/ with the function get_gadm(). If the destdir is given, the file will be downloaded only if it can not be found in the directory. It is also possible to get more than one country and other levels. Adding addShp=TRUE additionally writes a shapefile.
+
+```{r}
+gadmdir <- paste0(a_tempdir, "/GADM")
+adb <- get_gadm(cntryA3, level=1, destdir=gadmdir, addShp=TRUE, 
+                overwrite=TRUE)
+par(mar=c(0,0,0,0))
+plot(adb, xlim=bbox(adb)[1,], ylim=bbox(adb)[2,])
+```
+
+
+With the function read_lmd() specific subsets of the data can be loaded from a specific country and year, e.g. for Germany (DE) in 2012.
+
+```{r}
+fn.lmd <- get_filename(lmddir = lmddir, year=2012, country="DE")
+lmd <- read_lmd(fn.lmd)
+head(lmd)
+```
+
+
+There is often the need to re-classify the LULC data. With the function reclassify_LULC() the columns LC1 and LU1can be re-classified. This function requires a look-up table as input which defines the reclassification rules. The first column contains the codes (can be just the initial letters then the higher level classes are extracted) and the second the new IDs. Note that all other columns are ignored.
+
+  LC1,id,class,class_abbr,color
+  A,1,Urban,U,#b11114
+  B,2,Cropland,CL,#ffff99
+  C1,3,Broadleaf Woodland,BW,#4fc029
+  C2,4,Coniferous Woodland,CW,#1f601a
+  D,5,Shrubland,SL,#d2955c
+  E,6,Grassland,GL,#ffbc34
+  F,7,Bare Soil,BS,#b15928
+  G,8,Water,W,#1f78b4
+  H,9,Wetland,WL,#a6cee3 
+
+This look-up table is also stored in the package. The function reclassify_LULC() only requires a data frame as the following one:
+
+```{r}
+lut <- get_reclassify_lut("LC1nC9")
+lut
+```
+
+```{r}
+lmd$LC1nC9 <- reclassify_LULC(lmd$LC1, lut) 
+table(lmd$LC1)
+table(lmd$LC1nC9)
+```
+
+A spatial points data frame can be create with the function create_spatial_lmd(). When a path is given to the argument shp the data is also stored as shape file. Please note that the data frame must contain the columns GPS_X_LONG and GPS_Y_LAT.
+
+```{r}
+fn.lmd.sp <- gsub(".xls", ".shp", fn.lmd)
+lmd.sp <- create_spatial_lmd(lmd, shp=fn.lmd.sp, overwrite_layer=TRUE)
+```
+
+
+A common task might be to create spatial subsets.
+
+```{r}
+adb.bavaria <- adb[adb$NAME_1=="Bayern", ]
+lmd.sp.sub <- intersect_lmd(lmd.sp, adb.bavaria)
+
+par(mar=c(0,0,0,0))
+plot(adb.bavaria, col="lightgrey")
+plot(lmd.sp.sub, add=TRUE, pch=16, cex=.5, col=c("darkgrey", lut$color)[lmd.sp.sub@data$LC1nC9+1])
+```
+
+```{r}
+table(lmd.sp.sub$LC1nC9)
+```
+
+Merge LMD data
+
+```{r}
+cntrs <- c("DE", "AT")
+cntrsA3 <- available_lmd$gadm[available_lmd$code %in% cntrs]
+```
+
+```{r}
+fn.lmd.sp <- paste0(lmddir,  "/DEU_AUT_2012.shp")
+lmd <- c()
+for (cntry in cntrs) {
+  get_lmd(lmddir, countries=cntry, years=2012, cols=lmd_subsets[["a"]])
+  fn.lmd <- get_filename(lmddir = lmddir, year = 2012, country = cntry)
+  lmd <- rbind(lmd, read_lmd(fn.lmd))
+} 
+lmd$LC1nc9 <- reclassify_LULC(lmd$LC1, lut)
+lmd.sp <- create_spatial_lmd(lmd, shp=fn.lmd.sp, overwrite_layer=TRUE)
+```
+
+```{r}
+plot(lmd.sp, pch=16, cex=.1, col=c("darkgrey", lut$color)[lmd.sp.sub@data$LC1nC9+1])
+```
+
+Each LMD point carries a lot of metadata information. Some basic information about the metadata can be extracted with info_LMD_table(). For example, the list of attributes:
+
+```{r}
+info_LMD_table_attributes()
+```
+
+And (if applicable) a more detailed description of the possible values of the attributes:
+
+```{r}
+info_LMD_table(attr=c("LC1", "OBS_RADIUS", "AREA_SIZE"))
+```
+
+Lucas has a strict separation between Land cover and Land Use classes. The variables are stored in the fields LC1 and LU1. The class definitions can are described here: http://ec.europa.eu/eurostat/documents/205002/208012/LUCAS2012_C3-Classification_20131004_0.pdf/a71e46b5-a14b-4c9e-83ed-4f973dc139e0)
+
+Specific combinations of the information gives the specific LULC Class. For example, the land cover class Buildings with one to three floors (A11) combined with the the land use class Agriculture (excluding fallow land and kitchen gardens) (U111) is defined as Small agricultural buildings, farms, stables, poultry yards.
+
+The LC1 x LU1 matrix can be created as follows:
+
+```{r}
+lclu <- get_LC1xLU1_counts(lmd)
+my_breaks = c(1, 10, 100, 1000, 10000)
+ggplot(lclu, aes(LU1, LC1)) + geom_raster(aes(fill = count)) +
+    scale_fill_gradient(name = "count", trans = "log", breaks = my_breaks, labels = my_breaks) +
+    theme(axis.text.x = element_text(angle = 90, hjust = 1))
+```
