@@ -32,11 +32,13 @@ install_github('benmack/lucas')
 
 ## Development
 
-You can develop and use the **lucas** source code in a docker container based build from the [*rocker/geospatial*](https://github.com/rocker-org/geospatial) image. 
-Prerequisites are that you have Docker installed and local copy of the **lucas** source code on your machine.
+You can develop and use the **lucas** source code in a docker container build from the [*rocker/geospatial*](https://github.com/rocker-org/geospatial) image. 
+Prerequisites are that you have Docker installed and a local copy of the **lucas** source code on your machine.
 
 Run the following command in a terminal:
 
     docker run -i -p 8787:8787 -e PASSWORD=<password of your choice> -v <path containing the local copy of the lucas repository>:/home/rstudio/lucas rocker/geospatial
 
 And go to *http://localhost:8787/* in your browser where you can log in with the user *rstudio* and the password of your choice to connect to RStudio. In RStudio you should find the *lucas* folder under files in which you can start the *lucas.Rproj*.
+
+**Note that rocker/geospatial contains for more than needed for **lucas** and for not as slim as it could be.**
