@@ -1,0 +1,42 @@
+---
+title: "Download full EU28 LMD data of 2015"
+output: html_notebook
+---
+
+```{r}
+require(ggplot2)
+
+# # Use the latest lucas code from source:
+#require(devtools)
+#load_all("..")
+# # (OR) Use the installed package:
+require(lucas)
+```
+
+```{r}
+available_lmd <- get_lmd_overview()
+available_lmd
+```
+
+```{r}
+countries <- available_lmd$code[1:(nrow(available_lmd)-1)]
+countries
+```
+
+
+```{r}
+dstdir <- "./EU28"
+lmddir <- paste0(dstdir, "/LMD")
+get_lmd(lmddir, countries="EU28", years=2015, spatial=TRUE, save_shp=TRUE)
+```
+
+```{r}
+countriesA3 <- available_lmd$gadm[available_lmd$code %in% countries]
+countriesA3
+```
+
+```{r}
+for (iso in countriesA3) {
+  get_gadm(A3code = iso, level=1, destdir = paste0(dstdir, "/GADM"), filename_shp="default")
+} 
+```
